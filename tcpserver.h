@@ -10,8 +10,8 @@ class TcpServer : public QTcpServer
 {
     Q_OBJECT
 public:
-    explicit TcpServer(QObject *parent = nullptr);
-    void StartServer( );
+    explicit TcpServer(QGraphicsScene *scene, QObject *parent = nullptr);
+    void StartServer(  quint16 porta);
 
 signals:
 
@@ -19,6 +19,8 @@ public slots:
 
 protected:
     void incomingConnection(qintptr socketDescriptor);
+    QGraphicsScene *Sscene;
+
 };
 
 #endif // TCPSERVER_H

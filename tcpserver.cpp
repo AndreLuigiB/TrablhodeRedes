@@ -1,13 +1,13 @@
 #include "tcpserver.h"
 
-TcpServer::TcpServer(QObject *parent) : QTcpServer(parent)
+TcpServer::TcpServer(QGraphicsScene *scene, QObject *parent) : QTcpServer(parent)
 {
-
+    Sscene=scene;
 }
 
-void TcpServer::StartServer( )
+void TcpServer::StartServer(  quint16 porta)
 {
-    if(!this->listen(QHostAddress::Any,1234))
+    if(!this->listen(QHostAddress::Any,porta))
     {
         qDebug()<<"Não foi possível iniciar o server";
     }
@@ -19,7 +19,7 @@ void TcpServer::StartServer( )
 void TcpServer::incomingConnection(qintptr socketDescriptor)
 {
     qDebug()<< socketDescriptor <<" conectando ";
-    Thread*  thread = new  Thread(socketDescriptor, this);
+    Thread*  thread = new  Thread(socketDescriptor, Sscene, this);
     connect(thread, SIGNAL (finished()),thread, SLOT(disconnected()));
     thread->start();
 }

@@ -1,8 +1,10 @@
 #include "thread.h"
 
-Thread::Thread(qintptr ID, QObject *parent) : QThread(parent)
+Thread::Thread(qintptr ID, QGraphicsScene *scene, QObject *parent) : QThread(parent)
 {
     this->socketDescriptor=ID;
+    Sscene=scene;
+
 }
 
 void Thread::run()
@@ -25,7 +27,11 @@ void Thread::run()
 void Thread::readyRead()
 {
     QByteArray Data = socket -> readAll();
-    qDebug()<<socketDescriptor<<"Dados Lidos: "<< Data;
+    qDebug()<<socketDescriptor<<"Dados Lidos";
+
+    QPixmap image;
+    image.loadFromData(Data,"JPG");
+    Sscene->addPixmap(image);
 
     socket->write(Data);
 }
@@ -36,7 +42,7 @@ void Thread::disconnected()
     socket->close();
     socket->deleteLater();
 
-    exit(0);
+    //exit(0);
 
 }
 

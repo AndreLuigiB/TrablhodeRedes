@@ -30,13 +30,16 @@ SOURCES += \
         mainwindow.cpp \
         tcpserver.cpp \
     thread.cpp \
-    client.cpp
+    client.cpp \
+    udpserver.cpp
 
 HEADERS += \
+    crc.h \
         mainwindow.h \
         tcpserver.h \
     thread.h \
-    client.h
+    client.h \
+    udpserver.h
 
 FORMS += \
         mainwindow.ui
